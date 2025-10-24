@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tarun Sai Marisetti — Portfolio</title>
+  <meta name="description" content="Tarun Sai Marisetti — Master's student in Data Analytics at ASU. Backend engineer, LLM/RAG, cloud-native microservices." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0f1115;        /* page background */
+      --panel:#141821;     /* cards & header */
+      --muted:#8b97a7;     /* secondary text */
+      --text:#e6edf3;      /* primary text */
+      --brand:#6ac1ff;     /* accent */
+      --brand-2:#7dd3a7;   /* secondary accent */
+      --line:#212734;      /* borders */
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 18px;
+      --radius-sm: 12px;
+      --maxw: 1100px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0; font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif; color:var(--text); background:radial-gradient(1200px 600px at 70% -10%, rgba(106,193,255,.15), transparent 60%), radial-gradient(900px 500px at -10% 10%, rgba(125,211,167,.1), transparent 60%), var(--bg);}
+    a{color:inherit; text-decoration:none}
+    img{max-width:100%; display:block}
+
+    /* Layout */
+    .container{max-width:var(--maxw); margin:0 auto; padding:0 20px}
+    header{
+      position:sticky; top:0; z-index:50; backdrop-filter:saturate(180%) blur(10px);
+      background:linear-gradient(180deg, rgba(20,24,33,.9), rgba(20,24,33,.65));
+      border-bottom:1px solid var(--line);
+    }
+    .nav{display:flex; align-items:center; justify-content:space-between; padding:14px 0}
+    .brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.5px}
+    .brand .logo{width:32px; height:32px; border-radius:10px; display:grid; place-items:center; background:linear-gradient(135deg, var(--brand), var(--brand-2)); color:#0b0f15; font-weight:900}
+    .menu{display:flex; gap:18px; flex-wrap:wrap}
+    .menu a{padding:8px 12px; border-radius:10px; color:var(--muted); font-weight:600}
+    .menu a.active, .menu a:hover{background:#1b2130; color:var(--text)}
+
+    /* Hero */
+    .hero{padding:70px 0 30px}
+    .hero .card{background:linear-gradient(180deg, #151a24, #131722); border:2px solid var(--line); border-radius:var(--radius); padding:28px; box-shadow:var(--shadow); display:grid; grid-template-columns:1.1fr .9fr; gap:26px}
+    @media (max-width: 900px){.hero .card{grid-template-columns:1fr}}
+    .profile-pic{width:220px;height:220px;object-fit:cover;border-radius:12px;margin-bottom:16px;border:2px solid var(--brand)}
+    .kicker{color:var(--brand); font-weight:700; letter-spacing:.9px; text-transform:uppercase; font-size:12px}
+    h1{margin:.3rem 0 0; font-size:40px; line-height:1.1}
+    .subtitle{color:var(--muted); font-size:16px; margin-top:10px}
+    .cta-row{margin-top:18px; display:flex; gap:12px; flex-wrap:wrap}
+    .btn{display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:12px; border:1px solid var(--line); background:#1b2130; color:var(--text); font-weight:700}
+    .btn.primary{background:linear-gradient(135deg, var(--brand), var(--brand-2)); color:#0b0f15; border:none}
+    .meta{display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-top:6px}
+    .meta .pill{border:1px solid var(--line); background:#121722; padding:10px; border-radius:12px; color:var(--muted); font-size:14px}
+
+    /* Sections */
+    section{padding:36px 0}
+    .section-title{display:flex; align-items:center; gap:10px; margin-bottom:18px}
+    .section-title h2{margin:0; font-size:22px}
+    .section-title .dash{height:1px; flex:1; background:linear-gradient(90deg, var(--brand), transparent)}
+
+    .grid{display:grid; gap:16px}
+    .two{grid-template-columns:1fr 1fr}
+    .three{grid-template-columns:repeat(3, 1fr)}
+    @media (max-width: 900px){.two,.three{grid-template-columns:1fr}}
+
+    .card{background:#121722; border:1px solid var(--line); border-radius:var(--radius); padding:18px}
+    .card:hover{border-color:#2a3344}
+
+    /* Experience */
+    .xp-item{display:grid; grid-template-columns:140px 1fr; gap:14px}
+    @media (max-width: 700px){.xp-item{grid-template-columns:1fr}}
+    .xp-org{font-weight:700}
+    .xp-role{font-weight:700}
+    .xp-meta{color:var(--muted); font-size:14px}
+    ul.clean{margin:8px 0 0 18px}
+    ul.clean li{margin:6px 0}
+
+    /* Projects */
+    .tag{display:inline-block; padding:4px 8px; border-radius:999px; background:#0f141d; border:1px solid var(--line); font-size:12px; color:var(--muted); margin-right:6px; margin-top:6px}
+    .proj-title{display:flex; align-items:center; justify-content:space-between; gap:10px}
+
+    /* Skills */
+    .skills-cat{display:grid; grid-template-columns:160px 1fr; gap:14px; align-items:start}
+    @media (max-width: 700px){.skills-cat{grid-template-columns:1fr}}
+    .skills-list{display:flex; flex-wrap:wrap; gap:8px}
+
+    /* Education */
+    .edu-item{display:grid; grid-template-columns:160px 1fr; gap:14px}
+    @media (max-width: 700px){.edu-item{grid-template-columns:1fr}}
+
+    /* Contact */
+    form{display:grid; gap:10px}
+    .input, textarea{padding:12px 14px; background:#0f141d; color:var(--text); border:1px solid var(--line); border-radius:12px; font:inherit}
+    textarea{min-height:120px; resize:vertical}
+    .footer{margin-top:30px; padding:26px 0 40px; color:var(--muted); font-size:14px; border-top:1px solid var(--line)}
+
+    /* Active section link */
+    .menu a.active{outline: 2px solid rgba(106,193,255,.25)}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand"><span class="logo">TM</span> Tarun Sai Marisetti</div>
+      <nav class="menu" id="menu">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#education">Education</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section id="home" class="hero container">
+      <div class="card">
+        <div>
+        <img src="C:/Users/tarun/OneDrive/Desktop/linkedinPic.jpg" alt="Tarun Marisetti" class="profile-pic">
+          <div class="kicker">Student • Backend • LLM/RAG</div>
+          <h1>Building intelligent, cloud‑native software that simplifies workflows.</h1>
+          <p class="subtitle">Master’s student in Data Analytics at Arizona State University (Dec 2025) with 3+ years building Java‑based, scalable, and secure microservices. Hands‑on with Spring Boot, Kubernetes, and LLM engineering (RAG, LoRA, multi‑agent) to ship reliable, high‑performance systems.</p>
+          <div class="cta-row">
+            <a class="btn primary" href="#projects">View Projects</a>
+            <a class="btn" href="mailto:tmariset@asu.edu">Email Me</a>
+            <a class="btn" href="https://linkedin.com/in/tarun-marisetti" target="_blank" rel="noopener">LinkedIn</a>
+          </div>
+          <div class="meta">
+            <div class="pill">Tempe, AZ</div>
+            <div class="pill">Open to internships / SDE roles</div>
+          </div>
+        </div>
+        <div>
+          <div class="card" style="height:100%; display:grid; place-items:center; text-align:center">
+            <div>
+              <div style="font-weight:800; font-size:18px; margin-bottom:8px">Quick Facts</div>
+              <div style="color:var(--muted)">Java • Spring Boot • Kubernetes • Kafka • RAG • LoRA • Azure/AWS</div>
+              <div style="margin-top:12px">
+                <span class="tag">99% test coverage (JUnit/Mockito)</span>
+                <span class="tag">Reduced MTTR by 30%</span>
+                <span class="tag">99.9% uptime (prod)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="container">
+      <div class="section-title">
+        <h2>About</h2>
+        <div class="dash"></div>
+      </div>
+      <div class="card">
+        <p>I'm Tarun, a data‑driven backend engineer pursuing an MS in Data Analytics at ASU. I design clean, reusable, and secure microservices with Spring Boot and Kubernetes, and I’m equally excited about bringing LLMs into production via RAG and lightweight fine‑tuning. My goal is to build intelligent developer tools and cloud‑native systems that make teams faster and users happier.</p>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience" class="container">
+      <div class="section-title">
+        <h2>Experience</h2>
+        <div class="dash"></div>
+      </div>
+      <div class="grid">
+        <div class="card xp-item">
+          <div>
+            <div class="xp-org">Infosys — Hyderabad, India</div>
+            <div class="xp-meta">09/2022 – 12/2023</div>
+          </div>
+          <div>
+            <div class="xp-role">Associate Business Analyst</div>
+            <ul class="clean">
+              <li>Modernized AT&T network management platform from Rails → Spring Boot for scalability and maintainability.</li>
+              <li>Designed REST microservices; optimized SQL queries and stored procedures to improve consistency and performance.</li>
+              <li>Automated CI/CD with Jenkins/GitLab; deployed Docker/Kubernetes microservices (99.9% uptime).</li>
+              <li>Built Prometheus/Grafana observability; reduced incident MTTR by 30%.</li>
+              <li>Agile collaboration with QA and product; practiced TDD (99% coverage with JUnit/Mockito).</li>
+              <li>Documented APIs with Swagger/OpenAPI for better discoverability.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card xp-item">
+          <div>
+            <div class="xp-org">Tata Consultancy Services — Hyderabad, India</div>
+            <div class="xp-meta">10/2020 – 09/2022</div>
+          </div>
+          <div>
+            <div class="xp-role">Assistant System Engineer</div>
+            <ul class="clean">
+              <li>Built Java‑based REST APIs serving as orchestration layers between core enterprise systems for USAA.</li>
+              <li>Owned design → deploy within Agile/Scrum; improved backend performance with concurrency & data‑structure choices.</li>
+              <li>Performed log analysis & RCA to improve service stability by 25%.</li>
+              <li>Automated unit/integration testing (JUnit, Mockito, Postman) and robust Maven builds.</li>
+              <li>Followed Secure SDLC ensuring privacy and compliance.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="container">
+      <div class="section-title">
+        <h2>Projects</h2>
+        <div class="dash"></div>
+      </div>
+      <div class="grid two">
+        <div class="card">
+          <div class="proj-title"><strong>Cloud‑Native Microservices Reliability Platform</strong></div>
+          <p>Spring Boot + Eureka simulation of control‑plane behavior: service discovery, auth, routing, and incident automation to improve resilience.</p>
+          <div>
+            <span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">Spring Cloud</span>
+            <span class="tag">Kafka</span><span class="tag">RabbitMQ</span><span class="tag">Docker</span>
+            <span class="tag">Kubernetes</span><span class="tag">Helm</span><span class="tag">Prometheus</span><span class="tag">Grafana</span>
+          </div>
+        </div>
+        <div class="card">
+          <div class="proj-title"><strong>AI‑Enhanced Productivity Platform (RAG + LLMs)</strong></div>
+          <p>Automation assistants using RAG pipelines, LoRA fine‑tuning, and multi‑agent workflows with LangChain + Azure OpenAI for semantic search and contextual recommendations.</p>
+          <div>
+            <span class="tag">Python</span><span class="tag">LangChain</span><span class="tag">LlamaIndex</span>
+            <span class="tag">OpenAI API</span><span class="tag">FAISS</span><span class="tag">LoRA</span><span class="tag">Multi‑Agent</span>
+          </div>
+        </div>
+        <div class="card">
+          <div class="proj-title"><strong>Pac‑Man AI Agent — Search & RL</strong></div>
+          <p>Monte Carlo Tree Search agent for heuristic ranking and decision‑making under uncertainty; reward optimization analogous to search relevance tuning.</p>
+          <div>
+            <span class="tag">Python</span><span class="tag">NumPy</span><span class="tag">Reinforcement Learning</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="container">
+      <div class="section-title">
+        <h2>Skills</h2>
+        <div class="dash"></div>
+      </div>
+      <div class="grid">
+        <div class="card skills-cat">
+          <div><strong>Languages & Frameworks</strong></div>
+          <div class="skills-list">
+            <span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">Spring Cloud</span>
+            <span class="tag">Python</span><span class="tag">C++</span><span class="tag">React</span><span class="tag">Bash</span>
+          </div>
+        </div>
+        <div class="card skills-cat">
+          <div><strong>AI & Tools</strong></div>
+          <div class="skills-list">
+            <span class="tag">LangChain</span><span class="tag">Azure OpenAI</span><span class="tag">OpenAI API</span>
+            <span class="tag">Hugging Face</span><span class="tag">FAISS</span><span class="tag">LoRA</span>
+            <span class="tag">Multi‑Agent Systems</span><span class="tag">Cursor</span>
+          </div>
+        </div>
+        <div class="card skills-cat">
+          <div><strong>Distributed Systems</strong></div>
+          <div class="skills-list">
+            <span class="tag">Microservices</span><span class="tag">Service Discovery</span><span class="tag">Concurrency</span>
+            <span class="tag">High Availability</span><span class="tag">Load Balancing</span>
+            <span class="tag">Kafka</span><span class="tag">RabbitMQ</span><span class="tag">Spark (exp.)</span>
+            <span class="tag">Hadoop (fam.)</span><span class="tag">Redis (fam.)</span>
+          </div>
+        </div>
+        <div class="card skills-cat">
+          <div><strong>Security & IAM</strong></div>
+          <div class="skills-list">
+            <span class="tag">OAuth2</span><span class="tag">JWT</span><span class="tag">RBAC</span><span class="tag">API Gateway Security</span><span class="tag">Secure SDLC</span>
+          </div>
+        </div>
+        <div class="card skills-cat">
+          <div><strong>Cloud & DevOps</strong></div>
+          <div class="skills-list">
+            <span class="tag">Azure</span><span class="tag">AWS</span><span class="tag">Docker</span>
+            <span class="tag">Kubernetes</span><span class="tag">Helm</span><span class="tag">Jenkins</span>
+            <span class="tag">GitLab CI/CD</span><span class="tag">Linux</span>
+          </div>
+        </div>
+        <div class="card skills-cat">
+          <div><strong>Observability & DB</strong></div>
+          <div class="skills-list">
+            <span class="tag">Prometheus</span><span class="tag">Grafana</span><span class="tag">Tempo</span>
+            <span class="tag">MySQL</span><span class="tag">PostgreSQL (fam.)</span>
+            <span class="tag">SQL Optimization</span><span class="tag">Indexing</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section id="education" class="container">
+      <div class="section-title">
+        <h2>Education</h2>
+        <div class="dash"></div>
+      </div>
+      <div class="grid">
+        <div class="card edu-item">
+          <div><strong>Arizona State University</strong></div>
+          <div>
+            <div><strong>MS, Data Analytics (Computer Engineering Track)</strong> — 01/2024 – 12/2025</div>
+            <div class="xp-meta">Tempe, AZ</div>
+            <div style="margin-top:6px; color:var(--muted)">Coursework: Data Visualization, Data Mining, Machine Learning, Artificial Intelligence, Software Security, Advanced DBMS, Optimization, Big Data</div>
+          </div>
+        </div>
+        <div class="card edu-item">
+          <div><strong>Gitam University</strong></div>
+          <div>
+            <div><strong>BTech, Computer Science</strong> — 06/2016 – 05/2020</div>
+            <div class="xp-meta">Visakhapatnam, India</div>
+            <div style="margin-top:6px; color:var(--muted)">Coursework: Cloud Computing, Compiler Design, Data Structures & Algorithms, Web Tech, OOP, OS, Computer Networks, DAA</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="container">
+      <div class="section-title">
+        <h2>Contact</h2>
+        <div class="dash"></div>
+      </div>
+      <div class="grid two">
+        <div class="card">
+          <form id="contactForm" action="mailto:tmariset@asu.edu" method="post" enctype="text/plain">
+            <input class="input" type="text" name="name" placeholder="Your name" required>
+            <input class="input" type="email" name="email" placeholder="Your email" required>
+            <textarea name="message" placeholder="Tell me about your project or role..." required></textarea>
+            <button class="btn primary" type="submit">Send</button>
+          </form>
+          <p class="xp-meta" style="margin-top:8px">Prefer email? <a href="mailto:tmariset@asu.edu" style="text-decoration:underline">tmariset@asu.edu</a></p>
+        </div>
+        <div class="card">
+          <div style="font-weight:700; margin-bottom:8px">Elsewhere</div>
+          <p class="xp-meta">Connect with me on:</p>
+          <p>
+            <a class="btn" href="https://linkedin.com/in/tarun-marisetti" target="_blank" rel="noopener">LinkedIn</a>
+            <a class="btn" href="tel:+16026722732">Call</a>
+          </p>
+          <p class="xp-meta">Tempe, AZ • Open to internships and new‑grad SDE roles</p>
+        </div>
+      </div>
+      <div class="container footer">
+        <div class="container" style="display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap">
+          <span>© <span id="year"></span> Tarun Sai Marisetti</span>
+          <span class="xp-meta">Built with semantic HTML + vanilla CSS • Single‑file for easy hosting</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Update year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Active menu link on scroll
+    const sections = document.querySelectorAll('main section[id]');
+    const links = document.querySelectorAll('#menu a');
+    const map = {};
+    links.forEach(a => { map[a.getAttribute('href').slice(1)] = a });
+
+    const onScroll = () => {
+      let current = 'home';
+      const fromTop = window.scrollY + 120;
+      sections.forEach(sec => {
+        if (sec.offsetTop <= fromTop) current = sec.id;
+      });
+      links.forEach(a => a.classList.remove('active'));
+      if (map[current]) map[current].classList.add('active');
+    };
+    document.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    // Basic mailto guard to avoid empty messages
+    document.getElementById('contactForm').addEventListener('submit', function(e){
+      const name = this.querySelector('[name="name"]').value.trim();
+      const email = this.querySelector('[name="email"]').value.trim();
+      const msg = this.querySelector('[name="message"]').value.trim();
+      if(!name || !email || !msg){
+        e.preventDefault();
+        alert('Please fill in all fields.');
+      }
+    });
+  </script>
+</body>
+</html>
